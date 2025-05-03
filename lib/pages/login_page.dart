@@ -1,9 +1,8 @@
+import 'package:arogya_mitra_doctor/database/firebase_db.dart';
+import 'package:arogya_mitra_doctor/pages/home_page.dart';
+import 'package:arogya_mitra_doctor/pages/register_page.dart';
 import 'package:flutter/material.dart';
-import 'package:arogya_mitra_patient/database/firebase_db.dart';
-import 'package:arogya_mitra_patient/pages/home_page.dart';
-import 'package:arogya_mitra_patient/auth/register_page.dart';
-import 'package:arogya_mitra_patient/widgets/custom_dialog.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:arogya_mitra_doctor/widgets/custom_dialog.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -60,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                   value,
                 ) {
                   if (value == false) {
+                    CustomDialog.hideLoadingDialog(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Login Failed')),
                     );
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                     );
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
+                      MaterialPageRoute(builder: (context) => HomePage()),
                     );
                   }
                 });

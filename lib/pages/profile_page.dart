@@ -1,5 +1,6 @@
 import 'package:arogya_mitra_doctor/database/firebase_db.dart';
 import 'package:arogya_mitra_doctor/model/doctor_profile.dart';
+import 'package:arogya_mitra_doctor/pages/home_page.dart';
 import 'package:arogya_mitra_doctor/pages/login_page.dart';
 import 'package:arogya_mitra_doctor/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile Page')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -130,6 +130,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 // Show success message
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Profile saved successfully!')),
+                );
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
               child: const Text('Save Profile'),

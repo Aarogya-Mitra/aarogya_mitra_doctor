@@ -1,4 +1,7 @@
 
+import 'package:arogya_mitra_doctor/database/firebase_db.dart';
+import 'package:arogya_mitra_doctor/pages/home_page.dart';
+import 'package:arogya_mitra_doctor/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -65,7 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     );
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
+                      MaterialPageRoute(builder: (context) => HomePage()),
                     );
                   }
                 });

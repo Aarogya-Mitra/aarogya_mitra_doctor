@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:arogya_mitra_doctor/model/consultation.dart';
 import 'package:arogya_mitra_doctor/model/doctor_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,6 +20,9 @@ class FirebaseDb {
   ) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
+      // Fetch the user profile from Firestore
+      final userId = auth.currentUser!.uid;
+      currentUserProfile = await getDoctorProfile(userId);
       return true;
     } catch (e) {
       print(e.toString());
@@ -72,6 +76,31 @@ class FirebaseDb {
       return DoctorProfile.fromMap(id, snapshot.data()!);
     } else {
       return null;
+    }
+  }
+
+  static Future<List<Consultation>> getOpenConsultations() async {
+    try {
+      final snapshot =
+          await FirebaseDb.firestore
+              .collection('consultations')
+              .where('status', isEqualTo: 'open')
+              .get();
+      // if (snapshot.docs.isEmpty) {
+      //   print("No open consultations found.");
+      //   return [];
+      // } else {
+      //   print("Open consultations found: ${snapshot.docs.length}");
+      // }
+      return snapshot.docs.map((doc) {
+        final data = doc.data();
+        print(data);
+        data['id'] = doc.id; // Add document ID if needed
+        return Consultation.fromMap(data);
+      }).toList();
+    } catch (e) {
+      print("Error fetching open consultations: $e");
+      return [];
     }
   }
 

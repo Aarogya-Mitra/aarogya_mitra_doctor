@@ -9,7 +9,7 @@ class RoutePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (FirebaseDb.auth.currentUser != null) {
-      return const HomePage();
+      return HomePage();
     } else {
       return const LoginPage();
     }
